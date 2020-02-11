@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import ReactTestUtils from "react-dom/test-utils";
 
-import { Appointment, AppointmentsDayView } from "../components/Appoinment";
+import { Appointment, AppointmentsDayView } from "../components/AppointmentsDayView";
 
 describe('Appointment', function () {
   let container;

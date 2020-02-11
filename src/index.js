@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import './index.css';
 
-import { AppointmentsDayView } from "./components/Appoinment";
+import { AppointmentsDayView } from "./components/AppointmentsDayView";
 
 import { sampleAppointments } from "./sampleData";
 
