@@ -33,6 +33,11 @@ describe('Appointment', function () {
 
 describe("AppointmentsDayView", () => {
   let container;
+  const today = new Date();
+  const appointments = [
+    { startsAt: today.setHours(12, 0), customer: { firstName: "Ashley" } },
+    { startsAt: today.setHours(13, 0), customer: { firstName: "Jordan" } }
+  ];
 
   const render = component => ReactDOM.render(component, container);
 
@@ -47,12 +52,6 @@ describe("AppointmentsDayView", () => {
   });
 
   it('should render multiple appointments in an ol element', function () {
-    const today = new Date();
-    const appointments = [
-      { startsAt: today.setHours(12, 0) },
-      { startsAt: today.setHours(13, 0) }
-    ];
-
     render(<AppointmentsDayView appointments={appointments} />);
 
     expect(container.querySelector("ol")).not.toBeNull();
@@ -60,12 +59,6 @@ describe("AppointmentsDayView", () => {
   });
 
   it('should render each appointment in an li', function () {
-    const today = new Date();
-    const appointments = [
-      { startsAt: today.setHours(12, 0) },
-      { startsAt: today.setHours(13, 0) }
-    ];
-
     render(<AppointmentsDayView appointments={appointments} />);
 
     expect(container.querySelectorAll("li")).toHaveLength(2);
@@ -77,5 +70,11 @@ describe("AppointmentsDayView", () => {
     render(<AppointmentsDayView appointments={[]} />);
 
     expect(container.textContent).toMatch("There are no appointments scheduled for today.");
+  });
+
+  it('should select the first appointment by default.', function () {
+    render(<AppointmentsDayView appointments={appointments} />);
+
+    expect(container.textContent).toMatch("Ashley");
   });
 });
