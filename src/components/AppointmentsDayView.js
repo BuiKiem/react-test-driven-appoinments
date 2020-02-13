@@ -14,6 +14,10 @@ export const Appointment = ({ customer }) => {
         <td>Customer</td>
         <td>{customer.firstName}, {customer.lastName}</td>
       </tr>
+      <tr>
+        <td>Phone Number</td>
+        <td>{customer.phoneNumber}</td>
+      </tr>
       </tbody>
     </table>
     </div>

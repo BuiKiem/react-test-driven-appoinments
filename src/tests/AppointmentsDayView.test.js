@@ -46,12 +46,24 @@ describe('Appointment', function () {
     expect(container.textContent).toMatch("Jones");
   });
 
-  it('should render another customer first name', function () {
-    const customer = { firstName: "Smith" };
+  it('should render another customer last name', function () {
+    const customer = { lastName: "Smith" };
 
     render(<Appointment customer={customer} />);
 
     expect(container.textContent).toMatch("Smith");
+  });
+
+  it('should render the customer phone number', () => {
+    customer = { phoneNumber: '123456789' };
+    render(<Appointment customer={customer} />);
+    expect(appointmentTable().textContent).toMatch('123456789');
+  });
+
+  it('should render another customer phone number', () => {
+    customer = { phoneNumber: '234567890' };
+    render(<Appointment customer={customer} />);
+    expect(appointmentTable().textContent).toMatch('234567890');
   });
 });
 
