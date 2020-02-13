@@ -12,7 +12,7 @@ export const Appointment = ({ customer }) => {
       <tbody>
       <tr>
         <td>Customer</td>
-        <td>{customer.firstName}</td>
+        <td>{customer.firstName}, {customer.lastName}</td>
       </tr>
       </tbody>
     </table>
