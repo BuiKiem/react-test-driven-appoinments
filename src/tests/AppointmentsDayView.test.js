@@ -67,15 +67,23 @@ describe('Appointment', function () {
   });
 
   it('should render stylist name', function () {
-    customer = { stylist: 'Sam' };
-    render(<Appointment customer={customer} />);
+    render(<Appointment customer={customer} stylist="Sam" />);
     expect(appointmentTable().textContent).toMatch('Sam');
   });
 
   it('should render another stylist name', function () {
-    customer = { stylist: 'Jo' };
-    render(<Appointment customer={customer} />);
+    render(<Appointment customer={customer} stylist='Jo' />);
     expect(appointmentTable().textContent).toMatch('Jo');
+  });
+
+  it('should render the salon service', () => {
+    render(<Appointment customer={customer} service="Cut" />);
+    expect(appointmentTable().textContent).toMatch('Cut');
+  });
+
+  it('should render another salon service', () => {
+    render(<Appointment customer={customer} service="Blow-dry" />);
+    expect(appointmentTable().textContent).toMatch('Blow-dry');
   });
 });
 
