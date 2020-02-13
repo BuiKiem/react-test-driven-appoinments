@@ -18,6 +18,10 @@ export const Appointment = ({ customer }) => {
         <td>Phone Number</td>
         <td>{customer.phoneNumber}</td>
       </tr>
+      <tr>
+        <td>Stylist</td>
+        <td>{customer.stylist}</td>
+      </tr>
       </tbody>
     </table>
     </div>

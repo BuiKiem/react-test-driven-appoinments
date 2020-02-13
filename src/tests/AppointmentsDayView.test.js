@@ -65,6 +65,18 @@ describe('Appointment', function () {
     render(<Appointment customer={customer} />);
     expect(appointmentTable().textContent).toMatch('234567890');
   });
+
+  it('should render stylist name', function () {
+    customer = { stylist: 'Sam' };
+    render(<Appointment customer={customer} />);
+    expect(appointmentTable().textContent).toMatch('Sam');
+  });
+
+  it('should render another stylist name', function () {
+    customer = { stylist: 'Jo' };
+    render(<Appointment customer={customer} />);
+    expect(appointmentTable().textContent).toMatch('Jo');
+  });
 });
 
 describe("AppointmentsDayView", () => {
