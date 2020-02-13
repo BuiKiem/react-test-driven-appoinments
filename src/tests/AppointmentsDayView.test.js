@@ -85,6 +85,16 @@ describe('Appointment', function () {
     render(<Appointment customer={customer} service="Blow-dry" />);
     expect(appointmentTable().textContent).toMatch('Blow-dry');
   });
+
+  it('should render the appointments notes', () => {
+    render(<Appointment customer={customer} notes="abc" />);
+    expect(appointmentTable().textContent).toMatch('abc');
+  });
+
+  it('should render other appointment notes', () => {
+    render(<Appointment customer={customer} notes="def" />);
+    expect(appointmentTable().textContent).toMatch('def');
+  });
 });
 
 describe("AppointmentsDayView", () => {
