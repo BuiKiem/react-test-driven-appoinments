@@ -6,14 +6,21 @@ import { Appointment, AppointmentsDayView } from "../components/AppointmentsDayV
 
 describe('Appointment', function () {
   let container;
-  let component;
+  let customer = {};
 
   const render = component => ReactDOM.render(component, container);
+
+  const appointmentTable = () => container.querySelector("#appointmentView > table");
 
   beforeEach(() => {
     container = document.createElement("div");
   });
 
+  it('should render a table', function () {
+    render(<Appointment customer={customer} />);
+
+    expect(appointmentTable()).not.toBeNull();
+  });
 
   it('should render the customer first name', function () {
     const customer = { firstName: "Ashley" };
