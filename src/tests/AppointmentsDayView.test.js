@@ -22,6 +22,16 @@ describe('Appointment', function () {
     expect(appointmentTable()).not.toBeNull();
   });
 
+  it('should render a heading with the time', function () {
+    const today = new Date();
+    const timestamp = today.setHours(9, 0, 0);
+
+    render(<Appointment customer={customer} startsAt={timestamp} />);
+
+    expect(container.querySelector("h3")).not.toBeNull();
+    expect(container.querySelector("h3").textContent).toEqual("Today's appointment at 09:00");
+  });
+
   it('should render the customer first name', function () {
     const customer = { firstName: "Ashley" };
 
