@@ -6,12 +6,14 @@ import { CustomerForm } from "../components/CustomerForm";
 describe('CustomerForm', function () {
   let render, container;
 
+  const form = id => container.querySelector(`form[id="${id}"]`);
+
   beforeEach(() => ({render, container} = createContainer()));
 
   it('should render a form', function () {
     render(<CustomerForm />);
 
-    expect(container.querySelector("form[id='customer']")).not.toBeNull();
+    expect(form("customer")).not.toBeNull();
   });
 });
 
