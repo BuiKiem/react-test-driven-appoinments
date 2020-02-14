@@ -8,6 +8,12 @@ describe("CustomerForm", function() {
 
   const form = id => container.querySelector(`form[id="${id}"]`);
 
+  const expectToBeInputFieldOfTypeText = formElement => {
+    expect(formElement).not.toBeNull();
+    expect(formElement.tagName).toEqual("INPUT");
+    expect(formElement.type).toEqual("text");
+  };
+
   beforeEach(() => ({ render, container } = createContainer()));
 
   it("should render a form", function() {
@@ -21,8 +27,14 @@ describe("CustomerForm", function() {
 
     const field = form("customer").elements.firstName;
 
-    expect(field).not.toBeNull();
-    expect(field.tagName).toEqual("INPUT");
-    expect(field.type).toEqual("text");
+    expectToBeInputFieldOfTypeText(field);
+  });
+
+  it("should include the existing value for the first name", function() {
+    render(<CustomerForm firstName="Ashley" />);
+
+    const field = form("customer").elements.firstName;
+
+    expect(field.value).toEqual("Ashley");
   });
 });
