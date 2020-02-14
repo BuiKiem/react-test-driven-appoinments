@@ -15,4 +15,14 @@ describe("CustomerForm", function() {
 
     expect(form("customer")).not.toBeNull();
   });
+
+  it("should render the first name field as a textbox", function() {
+    render(<CustomerForm />);
+
+    const field = form("customer").elements.firstName;
+
+    expect(field).not.toBeNull();
+    expect(field.tagName).toEqual("INPUT");
+    expect(field.type).toEqual("text");
+  });
 });
