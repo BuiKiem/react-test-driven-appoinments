@@ -25,9 +25,9 @@ describe("CustomerForm", function() {
     });
 
   const itShouldIncludeTheExistingValue = fieldName =>
-    it("should include the existing value for the first name", function() {
+    it("should include the existing value for", function() {
       render(<CustomerForm {...{ [fieldName]: "value" }} />);
-      expect(field("firstName").value).toEqual("value");
+      expect(field(fieldName).value).toEqual("value");
     });
 
   const itShouldRenderALabel = (fieldName, text) =>
@@ -75,6 +75,12 @@ describe("CustomerForm", function() {
 
   beforeEach(() => ({ render, container } = createContainer()));
 
+  it("should render a form", function() {
+    render(<CustomerForm />);
+
+    expect(form("customer")).not.toBeNull();
+  });
+
   describe("first name field", function() {
     itShouldRenderAsATextBox("firstName");
     itShouldIncludeTheExistingValue("firstName");
@@ -84,9 +90,12 @@ describe("CustomerForm", function() {
     itShouldSaveNewValue("firstName", "New value");
   });
 
-  it("should render a form", function() {
-    render(<CustomerForm />);
-
-    expect(form("customer")).not.toBeNull();
+  describe("last name field", function() {
+    itShouldRenderAsATextBox("lastName");
+    itShouldIncludeTheExistingValue("lastName");
+    itShouldRenderALabel("lastName", "Last name");
+    itShouldAssignIdMatchesLabel("firstName");
+    itShouldSaveExistingValue("lastName", "Initial value");
+    itShouldSaveNewValue("lastName", "New value");
   });
 });
