@@ -5,6 +5,6 @@ export const createContainer = () => {
 
   return {
     render: component => ReactDOM.render(component, container),
-    container
+    container,
   };
 };
