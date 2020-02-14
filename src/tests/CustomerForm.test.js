@@ -40,6 +40,5 @@ describe("CustomerForm", function() {
     render(<CustomerForm />);
 
     expect(firstNameField().id).toEqual("firstName");
-    1;
   });
 });
