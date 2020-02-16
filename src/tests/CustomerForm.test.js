@@ -98,4 +98,13 @@ describe("CustomerForm", function() {
     itShouldSaveExistingValue("lastName", "Initial value");
     itShouldSaveNewValue("lastName", "New value");
   });
+
+  describe("phone number field", function() {
+    itShouldRenderAsATextBox("phoneNumber");
+    itShouldIncludeTheExistingValue("phoneNumber");
+    itShouldRenderALabel("phoneNumber", "Phone number");
+    itShouldAssignIdMatchesLabel("phoneNumber");
+    itShouldSaveExistingValue("phoneNumber", "1234");
+    itShouldSaveNewValue("phoneNumber", "5678");
+  });
 });
