@@ -5,10 +5,22 @@ export const AppointmentForm = ({ selectableServices, service, onSubmit }) => {
     service,
   });
 
+  const handleChangeService = ({ target }) => {
+    setAppointment(appointment => ({
+      ...appointment,
+      service: target.value,
+    }));
+  };
+
   return (
     <form id="appointment" onSubmit={() => onSubmit(appointment)}>
       <label htmlFor="service">Service</label>
-      <select name="service" id="service" value={service} readOnly>
+      <select
+        name="service"
+        id="service"
+        value={service}
+        onChange={handleChangeService}
+      >
         <option />
         {selectableServices.map(service => (
           <option key={service}>{service}</option>

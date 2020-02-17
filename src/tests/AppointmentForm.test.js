@@ -78,6 +78,7 @@ describe("AppointmentForm", function() {
     it("should save existing when submitted", async function() {
       const services = ["Cut", "Blow-dry"];
       expect.hasAssertions();
+
       render(
         <AppointmentForm
           selectableServices={services}
@@ -85,6 +86,25 @@ describe("AppointmentForm", function() {
           onSubmit={props => expect(props.service).toEqual("Cut")}
         />,
       );
+
+      await ReactTestUtils.Simulate.submit(form("appointment"));
+    });
+
+    it("should save new value when submitted", async function() {
+      const services = ["Cut", "Blow-dry"];
+      expect.hasAssertions();
+
+      render(
+        <AppointmentForm
+          selectableServices={services}
+          service="Cut"
+          onSubmit={props => expect(props.service).toEqual("Blow-dry")}
+        />,
+      );
+
+      await ReactTestUtils.Simulate.change(field("service"), {
+        target: { value: "Blow-dry", name: "service" },
+      });
       await ReactTestUtils.Simulate.submit(form("appointment"));
     });
   });
