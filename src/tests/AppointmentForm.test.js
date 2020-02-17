@@ -2,6 +2,7 @@ import React from "react";
 
 import { createContainer } from "./helpers/domManipulators";
 import { AppointmentForm } from "../components/AppointmentForm";
+import { CustomerForm } from "../components/CustomerForm";
 
 describe("AppointmentForm", function() {
   let render, container;
@@ -66,6 +67,11 @@ describe("AppointmentForm", function() {
       render(<AppointmentForm />);
       expect(labelFor("service")).not.toBeNull();
       expect(labelFor("service").textContent).toEqual("Service");
+    });
+
+    it("should assign an id that matches the label id", function() {
+      render(<AppointmentForm />);
+      expect(field("service").id).toEqual("service");
     });
   });
 });
