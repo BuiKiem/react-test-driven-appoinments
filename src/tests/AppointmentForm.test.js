@@ -25,5 +25,12 @@ describe("AppointmentForm", function() {
       expect(field("service")).not.toBeNull();
       expect(field("service").tagName).toEqual("SELECT");
     });
+
+    it("should initially has a blank value chosen", function() {
+      render(<AppointmentForm />);
+      const firstNode = field("service").childNodes[0];
+      expect(firstNode.value).toEqual("");
+      expect(firstNode.selected).toBeTruthy();
+    });
   });
 });
