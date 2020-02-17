@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const AppointmentForm = ({ selectableServices, service }) => {
+export const AppointmentForm = ({ selectableServices, service, onSubmit }) => {
+  const [appointment, setAppointment] = useState({
+    service,
+  });
+
   return (
-    <form id="appointment">
+    <form id="appointment" onSubmit={() => onSubmit(appointment)}>
       <label htmlFor="service">Service</label>
       <select name="service" id="service" value={service} readOnly>
         <option />

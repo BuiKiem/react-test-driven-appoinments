@@ -3,6 +3,7 @@ import React from "react";
 import { createContainer } from "./helpers/domManipulators";
 import { AppointmentForm } from "../components/AppointmentForm";
 import { CustomerForm } from "../components/CustomerForm";
+import ReactTestUtils from "react-dom/test-utils";
 
 describe("AppointmentForm", function() {
   let render, container;
@@ -72,6 +73,19 @@ describe("AppointmentForm", function() {
     it("should assign an id that matches the label id", function() {
       render(<AppointmentForm />);
       expect(field("service").id).toEqual("service");
+    });
+
+    it("should save existing when submitted", async function() {
+      const services = ["Cut", "Blow-dry"];
+      expect.hasAssertions();
+      render(
+        <AppointmentForm
+          selectableServices={services}
+          service="Cut"
+          onSubmit={props => expect(props.service).toEqual("Cut")}
+        />,
+      );
+      await ReactTestUtils.Simulate.submit(form("appointment"));
     });
   });
 });
