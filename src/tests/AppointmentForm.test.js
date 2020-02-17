@@ -8,6 +8,8 @@ describe("AppointmentForm", function() {
 
   const form = id => container.querySelector(`form[id="${id}"]`);
 
+  const field = name => form("appointment").elements[name];
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -20,8 +22,8 @@ describe("AppointmentForm", function() {
   describe("service field", function() {
     it("should render as a select box", function() {
       render(<AppointmentForm />);
-      expect(form("appointment").elements.service).not.toBeNull();
-      expect(form("appointment").elements.service.tagName).toEqual("SELECT");
+      expect(field("service")).not.toBeNull();
+      expect(field("service").tagName).toEqual("SELECT");
     });
   });
 });
