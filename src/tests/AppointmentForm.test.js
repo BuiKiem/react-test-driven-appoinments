@@ -10,6 +10,9 @@ describe("AppointmentForm", function() {
 
   const field = name => form("appointment").elements[name];
 
+  const labelFor = formElementId =>
+    container.querySelector(`label[for="${formElementId}"]`);
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -57,6 +60,12 @@ describe("AppointmentForm", function() {
       const option = findOption(field("service"), "Blow-dry");
 
       expect(option.selected).toBeTruthy();
+    });
+
+    it("should render a label", function() {
+      render(<AppointmentForm />);
+      expect(labelFor("service")).not.toBeNull();
+      expect(labelFor("service").textContent).toEqual("Service");
     });
   });
 });
