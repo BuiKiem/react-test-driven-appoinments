@@ -144,5 +144,24 @@ describe("AppointmentForm", function() {
       expect(dates[1].textContent).toEqual("Sun 02");
       expect(dates[6].textContent).toEqual("Fri 07");
     });
+
+    it("should render a radio button for each time slot", function() {
+      const today = new Date();
+      const availableTimeSlots = [
+        { startsAt: today.setHours(9, 0, 0, 0) },
+        { startsAt: today.setHours(9, 30, 0, 0) },
+      ];
+
+      render(
+        <AppointmentForm
+          today={today}
+          availableTimeSlots={availableTimeSlots}
+        />,
+      );
+
+      const cells = timeSlotTable().querySelectorAll("td");
+      expect(cells[0].querySelector("input[type='radio']")).not.toBeNull();
+      expect(cells[7].querySelector("input[type='radio']")).not.toBeNull();
+    });
   });
 });
