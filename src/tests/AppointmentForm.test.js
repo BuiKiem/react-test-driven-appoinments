@@ -16,6 +16,9 @@ describe("AppointmentForm", function() {
 
   const timeSlotTable = () => container.querySelector("table#time-slots");
 
+  const startsAtField = index =>
+    container.querySelectorAll(`input[name="startsAt"]`)[index];
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -169,6 +172,27 @@ describe("AppointmentForm", function() {
       const timesOfDay = timeSlotTable().querySelectorAll("input");
 
       expect(timesOfDay).toHaveLength(0);
+    });
+
+    it("should set radio values to the index of the corresponding appointment", function() {
+      const today = new Date();
+      const availableTimeSlots = [
+        { startsAt: today.setHours(9, 0, 0, 0) },
+        { startsAt: today.setHours(9, 30, 0, 0) },
+      ];
+      render(
+        <AppointmentForm
+          availableTimeSlots={availableTimeSlots}
+          today={today}
+        />,
+      );
+
+      expect(startsAtField(0).value).toEqual(
+        availableTimeSlots[0].startsAt.toString(),
+      );
+      expect(startsAtField(1).value).toEqual(
+        availableTimeSlots[1].startsAt.toString(),
+      );
     });
   });
 });

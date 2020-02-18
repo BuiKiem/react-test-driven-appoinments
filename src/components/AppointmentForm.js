@@ -36,6 +36,19 @@ const toShortDate = timestamp => {
   return `${day} ${dayOfMonth}`;
 };
 
+const RadioButtonIfAvailable = ({ availableTimeSlots, date, timeSlot }) => {
+  const startsAt = mergeDateAndTime(date, timeSlot);
+  if (
+    availableTimeSlots.some(
+      availableTimeSlot => availableTimeSlot.startsAt === startsAt,
+    )
+  ) {
+    return <input type="radio" name="startsAt" value={startsAt} />;
+  }
+
+  return null;
+};
+
 const TimeSlotTable = ({
   salonOpensAt,
   salonClosesAt,
@@ -60,13 +73,11 @@ const TimeSlotTable = ({
             <th>{toTimeValue(timeSlot)}</th>
             {dates.map(date => (
               <td key={date}>
-                {availableTimeSlots.some(
-                  availableTimeSlot =>
-                    availableTimeSlot.startsAt ===
-                    mergeDateAndTime(date, timeSlot),
-                ) ? (
-                  <input type="radio" />
-                ) : null}
+                <RadioButtonIfAvailable
+                  availableTimeSlots={availableTimeSlots}
+                  date={date}
+                  timeSlot={timeSlot}
+                />
               </td>
             ))}
           </tr>
