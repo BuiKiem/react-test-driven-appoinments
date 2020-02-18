@@ -163,5 +163,12 @@ describe("AppointmentForm", function() {
       expect(cells[0].querySelector("input[type='radio']")).not.toBeNull();
       expect(cells[7].querySelector("input[type='radio']")).not.toBeNull();
     });
+
+    it("should not render radio button for unavailable time slots", function() {
+      render(<AppointmentForm availableTimeSlots={[]} />);
+      const timesOfDay = timeSlotTable().querySelectorAll("input");
+
+      expect(timesOfDay).toHaveLength(0);
+    });
   });
 });
