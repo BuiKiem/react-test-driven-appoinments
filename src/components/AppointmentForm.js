@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
+const timeIncrements = (numTimes, startTime, increment) =>
+  Array(numTimes)
+    .fill([startTime])
+    .reduce((acc, _, index) => acc.concat([startTime + index * increment]));
+
 const dailyTimeSlots = (salonOpensAt, salonClosesAt) => {
   const totalSlots = (salonClosesAt - salonOpensAt) * 2;
   const startTime = new Date().setHours(salonOpensAt, 0, 0, 0);
   const increment = 30 * 60 * 1000;
-  const result = Array(totalSlots)
-    .fill([startTime])
-    .reduce((acc, _, index) => acc.concat([startTime + index * increment]));
-  return result;
+  return timeIncrements(totalSlots, startTime, increment);
 };
 
 const toTimeValue = timestamp =>
@@ -16,9 +18,7 @@ const toTimeValue = timestamp =>
 const weeklyDateValues = startDate => {
   const midnight = new Date(startDate).setHours(0, 0, 0, 0);
   const increment = 24 * 60 * 60 * 1000;
-  return Array(7)
-    .fill([midnight])
-    .reduce((acc, _, index) => acc.concat([midnight + index * increment]));
+  return timeIncrements(7, midnight, increment);
 };
 
 const toShortDate = timestamp => {
@@ -103,4 +103,5 @@ AppointmentForm.defaultProps = {
   ],
   salonOpensAt: 9,
   salonClosesAt: 19,
+  today: new Date(),
 };
