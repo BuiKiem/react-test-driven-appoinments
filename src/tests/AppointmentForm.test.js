@@ -125,5 +125,11 @@ describe("AppointmentForm", function() {
       expect(timesOfDay[1].textContent).toEqual("09:30");
       expect(timesOfDay[2].textContent).toEqual("10:00");
     });
+
+    it("should render an empty cell at the start of the header row", function() {
+      render(<AppointmentForm />);
+      const headerRow = timeSlotTable().querySelector("thead > tr");
+      expect(headerRow.firstChild.textContent).toEqual("");
+    });
   });
 });
