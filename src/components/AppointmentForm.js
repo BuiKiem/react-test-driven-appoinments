@@ -4,26 +4,44 @@ const dailyTimeSlots = (salonOpensAt, salonClosesAt) => {
   const totalSlots = (salonClosesAt - salonOpensAt) * 2;
   const startTime = new Date().setHours(salonOpensAt, 0, 0, 0);
   const increment = 30 * 60 * 1000;
-  return Array(totalSlots)
+  const result = Array(totalSlots)
     .fill([startTime])
     .reduce((acc, _, index) => acc.concat([startTime + index * increment]));
+  return result;
 };
 
 const toTimeValue = timestamp =>
   new Date(timestamp).toTimeString().substring(0, 5);
 
-const TimeSlotTable = ({ salonOpensAt, salonClosesAt }) => {
+const weeklyDateValues = startDate => {
+  const midnight = new Date(startDate).setHours(0, 0, 0, 0);
+  const increment = 24 * 60 * 60 * 1000;
+  return Array(7)
+    .fill([midnight])
+    .reduce((acc, _, index) => acc.concat([midnight + index * increment]));
+};
+
+const toShortDate = timestamp => {
+  const [day, , dayOfMonth] = new Date(timestamp).toDateString().split(" ");
+  return `${day} ${dayOfMonth}`;
+};
+
+const TimeSlotTable = ({ salonOpensAt, salonClosesAt, today }) => {
   const timeSlots = dailyTimeSlots(salonOpensAt, salonClosesAt);
+  const dates = weeklyDateValues(today);
   return (
     <table id="time-slots">
       <thead>
         <tr>
           <th />
+          {dates.map(date => (
+            <th key={`${date}1010`}>{toShortDate(date)}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
         {timeSlots.map(timeSlot => (
-          <tr key={timeSlot}>
+          <tr key={`${timeSlot}12132`}>
             <th>{toTimeValue(timeSlot)}</th>
           </tr>
         ))}
@@ -38,6 +56,7 @@ export const AppointmentForm = ({
   onSubmit,
   salonOpensAt,
   salonClosesAt,
+  today,
 }) => {
   const [appointment, setAppointment] = useState({
     service,
@@ -67,6 +86,7 @@ export const AppointmentForm = ({
       <TimeSlotTable
         salonOpensAt={salonOpensAt}
         salonClosesAt={salonClosesAt}
+        today={today}
       />
     </form>
   );
