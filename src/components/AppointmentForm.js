@@ -36,14 +36,27 @@ const toShortDate = timestamp => {
   return `${day} ${dayOfMonth}`;
 };
 
-const RadioButtonIfAvailable = ({ availableTimeSlots, date, timeSlot }) => {
-  const startsAt = mergeDateAndTime(date, timeSlot);
+const RadioButtonIfAvailable = ({
+  availableTimeSlots,
+  date,
+  checkedTimeSlot,
+}) => {
+  const startsAt = mergeDateAndTime(date, checkedTimeSlot);
   if (
     availableTimeSlots.some(
       availableTimeSlot => availableTimeSlot.startsAt === startsAt,
     )
   ) {
-    return <input type="radio" name="startsAt" value={startsAt} />;
+    const isChecked = startsAt === checkedTimeSlot;
+    return (
+      <input
+        type="radio"
+        name="startsAt"
+        value={startsAt}
+        checked={isChecked}
+        readOnly
+      />
+    );
   }
 
   return null;
@@ -76,7 +89,7 @@ const TimeSlotTable = ({
                 <RadioButtonIfAvailable
                   availableTimeSlots={availableTimeSlots}
                   date={date}
-                  timeSlot={timeSlot}
+                  checkedTimeSlot={timeSlot}
                 />
               </td>
             ))}
