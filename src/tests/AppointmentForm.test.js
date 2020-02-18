@@ -115,5 +115,15 @@ describe("AppointmentForm", function() {
       render(<AppointmentForm />);
       expect(timeSlotTable()).not.toBeNull();
     });
+
+    it("should render a time slot for every half an hour between open and close times", function() {
+      render(<AppointmentForm salonOpensAt={9} salonClosesAt={11} />);
+      const timesOfDay = timeSlotTable().querySelectorAll("tbody >* th");
+
+      expect(timesOfDay).toHaveLength(4);
+      expect(timesOfDay[0].textContent).toEqual("09:00");
+      expect(timesOfDay[1].textContent).toEqual("09:30");
+      expect(timesOfDay[2].textContent).toEqual("10:00");
+    });
   });
 });
