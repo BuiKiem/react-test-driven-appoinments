@@ -1,9 +1,8 @@
 import React from "react";
+import ReactTestUtils from "react-dom/test-utils";
 
 import { createContainer } from "./helpers/domManipulators";
 import { AppointmentForm } from "../components/AppointmentForm";
-import { CustomerForm } from "../components/CustomerForm";
-import ReactTestUtils from "react-dom/test-utils";
 
 describe("AppointmentForm", function() {
   let render, container;
@@ -14,6 +13,8 @@ describe("AppointmentForm", function() {
 
   const labelFor = formElementId =>
     container.querySelector(`label[for="${formElementId}"]`);
+
+  const timeSlotTable = () => container.querySelector("table#time-slots");
 
   beforeEach(() => {
     ({ render, container } = createContainer());
@@ -106,6 +107,13 @@ describe("AppointmentForm", function() {
         target: { value: "Blow-dry", name: "service" },
       });
       await ReactTestUtils.Simulate.submit(form("appointment"));
+    });
+  });
+
+  describe("time slot table", function() {
+    it("should render a table for time slot", function() {
+      render(<AppointmentForm />);
+      expect(timeSlotTable()).not.toBeNull();
     });
   });
 });
