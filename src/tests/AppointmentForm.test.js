@@ -195,7 +195,42 @@ describe("AppointmentForm", function() {
       );
     });
 
-    it("should save new value when submitted", function() {
+    it("should pre-select the existing value", function() {
+      const today = new Date();
+      const availableTimeSlots = [
+        { startsAt: today.setHours(9, 0, 0, 0) },
+        { startsAt: today.setHours(9, 30, 0, 0) },
+      ];
+      render(
+        <AppointmentForm
+          availableTimeSlots={availableTimeSlots}
+          today={today}
+          startsAt={availableTimeSlots[0].startsAt}
+        />,
+      );
+
+      expect(startsAtField(0).checked).toEqual(true);
+    });
+
+    it("should save existing value when submitted", async function() {
+      const today = new Date();
+      const availableTimeSlots = [
+        { startsAt: today.setHours(9, 0, 0, 0) },
+        { startsAt: today.setHours(9, 30, 0, 0) },
+      ];
+      render(
+        <AppointmentForm
+          availableTimeSlots={availableTimeSlots}
+          today={today}
+          startsAt={availableTimeSlots[0].startsAt}
+          onSubmit={({ startsAt }) =>
+            expect(startsAt).toEqual(availableTimeSlots[0].startsAt)
+          }
+        />,
+      );
+    });
+
+    it("should save new value when submitted", async function() {
       expect.hasAssertions();
       const today = new Date();
       const availableTimeSlots = [
