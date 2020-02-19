@@ -39,10 +39,11 @@ const toShortDate = timestamp => {
 const RadioButtonIfAvailable = ({
   availableTimeSlots,
   date,
+  timeSlot,
   checkedTimeSlot,
   handleChange,
 }) => {
-  const startsAt = mergeDateAndTime(date, checkedTimeSlot);
+  const startsAt = mergeDateAndTime(date, timeSlot);
   if (
     availableTimeSlots.some(
       availableTimeSlot => availableTimeSlot.startsAt === startsAt,
@@ -68,6 +69,7 @@ const TimeSlotTable = ({
   salonClosesAt,
   today,
   availableTimeSlots,
+  checkedTimeSlot,
   handleChange,
 }) => {
   const timeSlots = dailyTimeSlots(salonOpensAt, salonClosesAt);
@@ -84,14 +86,15 @@ const TimeSlotTable = ({
       </thead>
       <tbody>
         {timeSlots.map(timeSlot => (
-          <tr key={`${timeSlot}`}>
+          <tr key={timeSlot}>
             <th>{toTimeValue(timeSlot)}</th>
             {dates.map(date => (
               <td key={date}>
                 <RadioButtonIfAvailable
                   availableTimeSlots={availableTimeSlots}
                   date={date}
-                  checkedTimeSlot={timeSlot}
+                  timeSlot={timeSlot}
+                  checkedTimeSlot={checkedTimeSlot}
                   handleChange={handleChange}
                 />
               </td>
@@ -106,6 +109,7 @@ const TimeSlotTable = ({
 export const AppointmentForm = ({
   selectableServices,
   service,
+  startsAt,
   onSubmit,
   salonOpensAt,
   salonClosesAt,
@@ -114,6 +118,7 @@ export const AppointmentForm = ({
 }) => {
   const [appointment, setAppointment] = useState({
     service,
+    startsAt,
   });
 
   const handleChangeService = ({ target }) => {
@@ -151,8 +156,10 @@ export const AppointmentForm = ({
         salonClosesAt={salonClosesAt}
         today={today}
         availableTimeSlots={availableTimeSlots}
+        checkedTimeSlot={appointment.startsAt}
         handleChange={handleChangeStartsAt}
       />
+      <input type="submit" value="Submit" onClick={onSubmit} />
     </form>
   );
 };

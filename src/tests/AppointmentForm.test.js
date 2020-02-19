@@ -209,6 +209,7 @@ describe("AppointmentForm", function() {
           startsAt={availableTimeSlots[0].startsAt}
           onSubmit={({ startsAt }) => {
             expect(startsAt).toEqual(availableTimeSlots[1].startsAt);
+            expect(startsAtField(0).checked).toEqual(false);
           }}
         />,
       );
