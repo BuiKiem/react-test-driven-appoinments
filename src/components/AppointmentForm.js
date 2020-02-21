@@ -108,7 +108,9 @@ const TimeSlotTable = ({
 
 export const AppointmentForm = ({
   selectableServices,
+  selectableStylists,
   service,
+  stylist,
   startsAt,
   onSubmit,
   salonOpensAt,
@@ -151,8 +153,12 @@ export const AppointmentForm = ({
           <option key={service}>{service}</option>
         ))}
       </select>
-      <select name="stylist" id="stylist">
+      <label htmlFor="stylist">Stylist</label>
+      <select name="stylist" id="stylist" value={stylist} readOnly>
         <option />
+        {selectableStylists.map(stylist => (
+          <option key={stylist}>{stylist}</option>
+        ))}
       </select>
       <TimeSlotTable
         salonOpensAt={salonOpensAt}
@@ -176,6 +182,7 @@ AppointmentForm.defaultProps = {
     "Cut & beard trim",
     "Extensions",
   ],
+  selectableStylists: [],
   salonOpensAt: 9,
   salonClosesAt: 19,
   today: new Date(),

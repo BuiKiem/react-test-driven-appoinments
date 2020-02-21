@@ -39,6 +39,23 @@ describe("AppointmentForm", function() {
       expect(firstNode.selected).toBeTruthy();
     });
 
+  const itShouldPreSelectExistingValue = (fieldName, props, existingValue) =>
+    it("should pre-select the existing value", function() {
+      render(
+        <AppointmentForm {...props} {...{ [fieldName]: existingValue }} />,
+      );
+      const option = findOption(field(fieldName), existingValue);
+
+      expect(option.selected).toBeTruthy();
+    });
+
+  const itShouldRenderALabel = (fieldId, labelText) =>
+    it("should render a label", function() {
+      render(<AppointmentForm />);
+      expect(labelFor(fieldId)).not.toBeNull();
+      expect(labelFor(fieldId).textContent).toEqual(labelText);
+    });
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -63,21 +80,14 @@ describe("AppointmentForm", function() {
       );
     });
 
-    it("should pre-select the existing value", function() {
-      const services = ["Cut", "Blow-dry"];
-      render(
-        <AppointmentForm selectableServices={services} service="Blow-dry" />,
-      );
-      const option = findOption(field("service"), "Blow-dry");
-
-      expect(option.selected).toBeTruthy();
-    });
-
-    it("should render a label", function() {
-      render(<AppointmentForm />);
-      expect(labelFor("service")).not.toBeNull();
-      expect(labelFor("service").textContent).toEqual("Service");
-    });
+    itShouldPreSelectExistingValue(
+      "service",
+      {
+        selectableServices: ["Cut", "Blow-dry"],
+      },
+      "Blow-dry",
+    );
+    itShouldRenderALabel("service", "Service");
 
     it("should assign an id that matches the label id", function() {
       render(<AppointmentForm />);
@@ -267,5 +277,13 @@ describe("AppointmentForm", function() {
   describe("stylist field", function() {
     itShouldRenderAsASelectBox("stylist");
     itShouldInitiallyHasABlankValueChosen("stylist");
+    itShouldPreSelectExistingValue(
+      "stylist",
+      {
+        selectableStylists: ["A", "B"],
+      },
+      "A",
+    );
+    itShouldRenderALabel("stylist", "Stylist");
   });
 });
