@@ -56,6 +56,12 @@ describe("AppointmentForm", function() {
       expect(labelFor(fieldId).textContent).toEqual(labelText);
     });
 
+  const itShouldAssignAnIdThatMatchesTheLabelId = (fieldName, fieldId) =>
+    it("should assign an id that matches the label id", function() {
+      render(<AppointmentForm />);
+      expect(field(fieldName).id).toEqual(fieldId);
+    });
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -88,11 +94,7 @@ describe("AppointmentForm", function() {
       "Blow-dry",
     );
     itShouldRenderALabel("service", "Service");
-
-    it("should assign an id that matches the label id", function() {
-      render(<AppointmentForm />);
-      expect(field("service").id).toEqual("service");
-    });
+    itShouldAssignAnIdThatMatchesTheLabelId("service", "service");
 
     it("should save existing when submitted", async function() {
       const services = ["Cut", "Blow-dry"];
@@ -285,5 +287,6 @@ describe("AppointmentForm", function() {
       "A",
     );
     itShouldRenderALabel("stylist", "Stylist");
+    itShouldAssignAnIdThatMatchesTheLabelId("stylist", "stylist");
   });
 });
