@@ -31,6 +31,14 @@ describe("AppointmentForm", function() {
       expect(field(fieldName).tagName).toEqual("SELECT");
     });
 
+  const itShouldInitiallyHasABlankValueChosen = fieldName =>
+    it("should initially has a blank value chosen", function() {
+      render(<AppointmentForm />);
+      const firstNode = field(fieldName).childNodes[0];
+      expect(firstNode.value).toEqual("");
+      expect(firstNode.selected).toBeTruthy();
+    });
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -264,5 +272,6 @@ describe("AppointmentForm", function() {
 
   describe("stylist field", function() {
     itShouldRenderAsASelectBox("stylist");
+    itShouldInitiallyHasABlankValueChosen("stylist");
   });
 });
