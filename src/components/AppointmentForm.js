@@ -117,6 +117,7 @@ export const AppointmentForm = ({
   salonClosesAt,
   today,
   availableTimeSlots,
+  serviceStylists,
 }) => {
   const [appointment, setAppointment] = useState({
     service,
@@ -147,6 +148,10 @@ export const AppointmentForm = ({
     [],
   );
 
+  const stylistsForService = appointment.service
+    ? serviceStylists[appointment.service]
+    : selectableStylists;
+
   return (
     <form id="appointment" onSubmit={() => onSubmit(appointment)}>
       <label htmlFor="service">Service</label>
@@ -169,7 +174,7 @@ export const AppointmentForm = ({
         onChange={handleChangeStylist}
       >
         <option />
-        {selectableStylists.map(stylist => (
+        {stylistsForService.map(stylist => (
           <option key={stylist}>{stylist}</option>
         ))}
       </select>
@@ -195,7 +200,15 @@ AppointmentForm.defaultProps = {
     "Cut & beard trim",
     "Extensions",
   ],
-  selectableStylists: [],
+  selectableStylists: ["Ashley", "Jo", "Pat", "Sam"],
+  serviceStylists: {
+    Cut: ["Ashley", "Jo", "Pat", "Sam"],
+    "Blow-dry": ["Ashley", "Jo", "Pat", "Sam"],
+    "Cut & color": ["Ashley", "Jo"],
+    "Beard trim": ["Pat", "Sam"],
+    "Cut & beard trim": ["Pat", "Sam"],
+    Extensions: ["Ashley", "Pat"],
+  },
   salonOpensAt: 9,
   salonClosesAt: 19,
   today: new Date(),

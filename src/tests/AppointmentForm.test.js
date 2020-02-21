@@ -136,10 +136,10 @@ describe("AppointmentForm", function() {
     itShouldRenderALabel("service", "Service");
     itShouldAssignAnIdThatMatchesTheLabelId("service", "service");
     itShouldSaveExistingValueWhenSubmitted("service", {
-      selectableServices: ["Cut", "Blow-dry"],
+      serviceStylists: { value: [] },
     });
     itShouldSaveNewValueWhenSubmitted("service", {
-      selectableServices: ["Cut", "Blow-dry"],
+      serviceStylists: { value: [], newValue: [] },
     });
   });
 
@@ -306,6 +306,29 @@ describe("AppointmentForm", function() {
     });
     itShouldSaveNewValueWhenSubmitted("stylist", {
       selectableStylists: ["A", "B"],
+    });
+
+    it("should list only stylists that can perform the selected service", async function() {
+      const selectableServices = ["1", "2"];
+      const selectableStylists = ["A", "B"];
+      const serviceStylists = {
+        "1": ["A", "B"],
+      };
+
+      render(
+        <AppointmentForm
+          selectableServices={selectableServices}
+          selectableStylists={selectableStylists}
+          serviceStylists={serviceStylists}
+        />,
+      );
+      await ReactTestUtils.Simulate.change(field("service"), {
+        target: { value: "1", name: "service" },
+      });
+      const optionNodes = Array.from(field("stylist").childNodes);
+      const renderedStylists = optionNodes.map(node => node.textContent);
+
+      expect(renderedStylists).toEqual(expect.arrayContaining(["A", "B"]));
     });
   });
 });
