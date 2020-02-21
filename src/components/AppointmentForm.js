@@ -131,6 +131,13 @@ export const AppointmentForm = ({
     }));
   };
 
+  const handleChangeStylist = ({ target }) => {
+    setAppointment(appointment => ({
+      ...appointment,
+      stylist: target.value,
+    }));
+  };
+
   const handleChangeStartsAt = useCallback(
     ({ target: { value } }) =>
       setAppointment(appointment => ({
@@ -155,7 +162,12 @@ export const AppointmentForm = ({
         ))}
       </select>
       <label htmlFor="stylist">Stylist</label>
-      <select name="stylist" id="stylist" value={stylist} readOnly>
+      <select
+        name="stylist"
+        id="stylist"
+        value={stylist}
+        onChange={handleChangeStylist}
+      >
         <option />
         {selectableStylists.map(stylist => (
           <option key={stylist}>{stylist}</option>

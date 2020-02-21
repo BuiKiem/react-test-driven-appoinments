@@ -77,6 +77,24 @@ describe("AppointmentForm", function() {
       await ReactTestUtils.Simulate.submit(form("appointment"));
     });
 
+  const itShouldSaveNewValueWhenSubmitted = (fieldName, props) =>
+    it("should save new value when submitted", async () => {
+      expect.hasAssertions();
+
+      render(
+        <AppointmentForm
+          {...props}
+          {...{ [fieldName]: "value" }}
+          onSubmit={props => expect(props[fieldName]).toEqual("newValue")}
+        />,
+      );
+
+      await ReactTestUtils.Simulate.change(field(fieldName), {
+        target: { value: "newValue", name: fieldName },
+      });
+      await ReactTestUtils.Simulate.submit(form("appointment"));
+    });
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -113,23 +131,8 @@ describe("AppointmentForm", function() {
     itShouldSaveExistingValueWhenSubmitted("service", {
       selectableServices: ["Cut", "Blow-dry"],
     });
-
-    it("should save new value when submitted", async function() {
-      const services = ["Cut", "Blow-dry"];
-      expect.hasAssertions();
-
-      render(
-        <AppointmentForm
-          selectableServices={services}
-          service="Cut"
-          onSubmit={props => expect(props.service).toEqual("Blow-dry")}
-        />,
-      );
-
-      await ReactTestUtils.Simulate.change(field("service"), {
-        target: { value: "Blow-dry", name: "service" },
-      });
-      await ReactTestUtils.Simulate.submit(form("appointment"));
+    itShouldSaveNewValueWhenSubmitted("service", {
+      selectableServices: ["Cut", "Blow-dry"],
     });
   });
 
@@ -292,6 +295,9 @@ describe("AppointmentForm", function() {
     itShouldRenderALabel("stylist", "Stylist");
     itShouldAssignAnIdThatMatchesTheLabelId("stylist", "stylist");
     itShouldSaveExistingValueWhenSubmitted("stylist", {
+      selectableStylists: ["A", "B"],
+    });
+    itShouldSaveNewValueWhenSubmitted("stylist", {
       selectableStylists: ["A", "B"],
     });
   });
