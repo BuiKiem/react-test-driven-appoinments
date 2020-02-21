@@ -104,6 +104,13 @@ describe("AppointmentForm", function() {
     expect(form("appointment")).not.toBeNull();
   });
 
+  it("should have a submit button", function() {
+    render(<AppointmentForm />);
+    const submitButton = container.querySelector("input[type='submit']");
+
+    expect(submitButton).not.toBeNull();
+  });
+
   describe("service field", function() {
     itShouldRenderAsASelectBox("service");
     itShouldInitiallyHasABlankValueChosen("service");
