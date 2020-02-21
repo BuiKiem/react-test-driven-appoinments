@@ -19,6 +19,18 @@ describe("AppointmentForm", function() {
   const startsAtField = index =>
     container.querySelectorAll(`input[name="startsAt"]`)[index];
 
+  const findOption = (dropdownNode, textContent) => {
+    const options = Array.from(dropdownNode.childNodes);
+    return options.find(option => option.textContent === textContent);
+  };
+
+  const itShouldRenderAsASelectBox = fieldName =>
+    it("should render as a select box", function() {
+      render(<AppointmentForm />);
+      expect(field(fieldName)).not.toBeNull();
+      expect(field(fieldName).tagName).toEqual("SELECT");
+    });
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -29,16 +41,7 @@ describe("AppointmentForm", function() {
   });
 
   describe("service field", function() {
-    const findOption = (dropdownNode, textContent) => {
-      const options = Array.from(dropdownNode.childNodes);
-      return options.find(option => option.textContent === textContent);
-    };
-
-    it("should render as a select box", function() {
-      render(<AppointmentForm />);
-      expect(field("service")).not.toBeNull();
-      expect(field("service").tagName).toEqual("SELECT");
-    });
+    itShouldRenderAsASelectBox("service");
 
     it("should initially has a blank value chosen", function() {
       render(<AppointmentForm />);
@@ -257,5 +260,9 @@ describe("AppointmentForm", function() {
       });
       ReactTestUtils.Simulate.submit(form("appointment"));
     });
+  });
+
+  describe("stylist field", function() {
+    itShouldRenderAsASelectBox("stylist");
   });
 });
