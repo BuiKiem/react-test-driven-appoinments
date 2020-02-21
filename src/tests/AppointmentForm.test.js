@@ -62,6 +62,21 @@ describe("AppointmentForm", function() {
       expect(field(fieldName).id).toEqual(fieldId);
     });
 
+  const itShouldSaveExistingValueWhenSubmitted = (fieldName, props) =>
+    it("should save existing value when submitted", async () => {
+      expect.hasAssertions();
+
+      render(
+        <AppointmentForm
+          {...props}
+          {...{ [fieldName]: "value" }}
+          onSubmit={props => expect(props[fieldName]).toEqual("value")}
+        />,
+      );
+
+      await ReactTestUtils.Simulate.submit(form("appointment"));
+    });
+
   beforeEach(() => {
     ({ render, container } = createContainer());
   });
@@ -95,20 +110,8 @@ describe("AppointmentForm", function() {
     );
     itShouldRenderALabel("service", "Service");
     itShouldAssignAnIdThatMatchesTheLabelId("service", "service");
-
-    it("should save existing when submitted", async function() {
-      const services = ["Cut", "Blow-dry"];
-      expect.hasAssertions();
-
-      render(
-        <AppointmentForm
-          selectableServices={services}
-          service="Cut"
-          onSubmit={props => expect(props.service).toEqual("Cut")}
-        />,
-      );
-
-      await ReactTestUtils.Simulate.submit(form("appointment"));
+    itShouldSaveExistingValueWhenSubmitted("service", {
+      selectableServices: ["Cut", "Blow-dry"],
     });
 
     it("should save new value when submitted", async function() {
@@ -288,5 +291,8 @@ describe("AppointmentForm", function() {
     );
     itShouldRenderALabel("stylist", "Stylist");
     itShouldAssignAnIdThatMatchesTheLabelId("stylist", "stylist");
+    itShouldSaveExistingValueWhenSubmitted("stylist", {
+      selectableStylists: ["A", "B"],
+    });
   });
 });

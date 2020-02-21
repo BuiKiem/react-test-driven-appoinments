@@ -121,6 +121,7 @@ export const AppointmentForm = ({
   const [appointment, setAppointment] = useState({
     service,
     startsAt,
+    stylist,
   });
 
   const handleChangeService = ({ target }) => {
