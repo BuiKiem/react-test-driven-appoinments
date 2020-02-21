@@ -50,13 +50,7 @@ describe("AppointmentForm", function() {
 
   describe("service field", function() {
     itShouldRenderAsASelectBox("service");
-
-    it("should initially has a blank value chosen", function() {
-      render(<AppointmentForm />);
-      const firstNode = field("service").childNodes[0];
-      expect(firstNode.value).toEqual("");
-      expect(firstNode.selected).toBeTruthy();
-    });
+    itShouldInitiallyHasABlankValueChosen("service");
 
     it("should list all salon services", function() {
       const selectableServices = ["Cut", "Blow-dry"];
