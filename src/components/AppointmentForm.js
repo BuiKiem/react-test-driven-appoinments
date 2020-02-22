@@ -125,17 +125,10 @@ export const AppointmentForm = ({
     stylist,
   });
 
-  const handleChangeService = ({ target }) => {
+  const handleChangeSelectBox = ({ target: { value, name } }) => {
     setAppointment(appointment => ({
       ...appointment,
-      service: target.value,
-    }));
-  };
-
-  const handleChangeStylist = ({ target }) => {
-    setAppointment(appointment => ({
-      ...appointment,
-      stylist: target.value,
+      [name]: value,
     }));
   };
 
@@ -165,7 +158,7 @@ export const AppointmentForm = ({
         name="service"
         id="service"
         value={service}
-        onChange={handleChangeService}
+        onChange={handleChangeSelectBox}
       >
         <option />
         {selectableServices.map(service => (
@@ -177,7 +170,7 @@ export const AppointmentForm = ({
         name="stylist"
         id="stylist"
         value={stylist}
-        onChange={handleChangeStylist}
+        onChange={handleChangeSelectBox}
       >
         <option />
         {stylistsForService.map(stylist => (
