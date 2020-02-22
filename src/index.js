@@ -5,13 +5,13 @@ import "./index.css";
 
 import { AppointmentsDayView } from "./components/AppointmentsDayView";
 
-import { sampleAppointments } from "./sampleData";
+import { sampleAppointments, sampleAvailableTimeSlots } from "./sampleData";
 import { AppointmentForm } from "./components/AppointmentForm";
 
 ReactDOM.render(
   <div>
     <AppointmentsDayView appointments={sampleAppointments} />
-    <AppointmentForm availableTimeSlots={sampleAppointments} />
+    <AppointmentForm availableTimeSlots={sampleAvailableTimeSlots} />
   </div>,
   document.getElementById("root"),
 );
