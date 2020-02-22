@@ -7,6 +7,8 @@ import { AppointmentForm } from "../components/AppointmentForm";
 describe("AppointmentForm", function() {
   let render, container;
 
+  const today = new Date();
+
   const form = id => container.querySelector(`form[id="${id}"]`);
 
   const field = name => form("appointment").elements[name];
@@ -179,7 +181,6 @@ describe("AppointmentForm", function() {
     });
 
     it("should render a radio button for each time slot", function() {
-      const today = new Date();
       const availableTimeSlots = [
         { startsAt: today.setHours(9, 0, 0, 0) },
         { startsAt: today.setHours(9, 30, 0, 0) },
@@ -205,7 +206,6 @@ describe("AppointmentForm", function() {
     });
 
     it("should set radio values to the index of the corresponding appointment", function() {
-      const today = new Date();
       const availableTimeSlots = [
         { startsAt: today.setHours(9, 0, 0, 0) },
         { startsAt: today.setHours(9, 30, 0, 0) },
@@ -226,7 +226,6 @@ describe("AppointmentForm", function() {
     });
 
     it("should pre-select the existing value", function() {
-      const today = new Date();
       const availableTimeSlots = [
         { startsAt: today.setHours(9, 0, 0, 0) },
         { startsAt: today.setHours(9, 30, 0, 0) },
@@ -243,7 +242,6 @@ describe("AppointmentForm", function() {
     });
 
     it("should save existing value when submitted", async function() {
-      const today = new Date();
       const availableTimeSlots = [
         { startsAt: today.setHours(9, 0, 0, 0) },
         { startsAt: today.setHours(9, 30, 0, 0) },
@@ -262,7 +260,6 @@ describe("AppointmentForm", function() {
 
     it("should save new value when submitted", async function() {
       expect.hasAssertions();
-      const today = new Date();
       const availableTimeSlots = [
         { startsAt: today.setHours(9, 0, 0, 0) },
         { startsAt: today.setHours(9, 30, 0, 0) },
@@ -289,7 +286,6 @@ describe("AppointmentForm", function() {
     });
 
     it("should filter appointments by selected stylist", function() {
-      const today = new Date();
       const availableTimeSlots = [
         {
           startsAt: today.setHours(9, 0, 0, 0),
