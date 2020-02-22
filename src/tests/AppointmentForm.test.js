@@ -287,6 +287,34 @@ describe("AppointmentForm", function() {
       });
       ReactTestUtils.Simulate.submit(form("appointment"));
     });
+
+    it("should filter appointments by selected stylist", function() {
+      const today = new Date();
+      const availableTimeSlots = [
+        {
+          startsAt: today.setHours(9, 0, 0, 0),
+          stylists: ["A", "B"],
+        },
+        {
+          startsAt: today.setHours(9, 30, 0, 0),
+          stylists: ["A"],
+        },
+      ];
+
+      render(
+        <AppointmentForm
+          availableTimeSlots={availableTimeSlots}
+          today={today}
+        />,
+      );
+      ReactTestUtils.Simulate.change(field("stylist"), {
+        target: { value: "B", name: "stylist" },
+      });
+      const cells = timeSlotTable().querySelectorAll("td");
+
+      expect(cells[0].querySelector("input[type='radio']")).not.toBeNull();
+      expect(cells[7].querySelector("input[type='radio']")).toBeNull();
+    });
   });
 
   describe("stylist field", function() {
